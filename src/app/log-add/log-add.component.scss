@@ -1,0 +1,21 @@
+.title-add {
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .btn-add {
+    cursor: pointer;
+    color: wheat;
+  }
+
+  .btn-add:hover {
+    background-color: gray;
+  }
+}
+
+.example-container > * {
+  width: 100%;
+}

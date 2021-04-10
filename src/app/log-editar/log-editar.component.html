@@ -1,1 +1,20 @@
-<p>log-editar works!</p>
+<div>
+  <div>
+    <h3>Editar Produto</h3>
+  </div>
+  <form class="example-container" [formGroup]="logForm" (ngSubmit)="updateLog(logForm?.value)">
+    <mat-form-field>
+      <input matInput name="fileName" placeholder="Dê um nome para esse arquivo:" formControlName="fileName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="dateTime" type="date" placeholder="Qual a data deste log?" formControlName="dateTime">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="ip" placeholder="Digite o endereço IP:" formControlName="ip">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="userAgent" placeholder="Qual o nome do UserAgent?" formControlName="userAgent">
+    </mat-form-field>
+    <button type="submit" [disabled]="!logForm.valid" mat-button color="primary" >Editar</button>
+  </form>
+</div>

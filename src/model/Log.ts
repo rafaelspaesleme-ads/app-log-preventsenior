@@ -1,10 +1,10 @@
 export class Log {
-  id = '';
-  fileName = '';
-  dateTime = '';
-  ip = '';
-  request = '';
-  statusHttp = '';
-  userAgent = '';
-  active = false;
+  id: String = '';
+  fileName: String = '';
+  dateTime: String = '';
+  ip: String = '';
+  request: String = '';
+  statusHttp: String = '';
+  userAgent: String = '';
+  active: Boolean = true;
 }

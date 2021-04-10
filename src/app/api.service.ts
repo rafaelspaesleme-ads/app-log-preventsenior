@@ -3,6 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Log } from '../model/Log';
+import { Response } from "../model/Response";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,68 +32,69 @@ export class ApiService {
     };
   }
 
-  getLogs(): Observable<any> {
+  getLogs(): Observable<Response> {
     const endpoint = apiUrl.concat('/list');
-    return this.http.get<any>(endpoint)
+    return this.http.get<Response>(endpoint)
       .pipe(
-        tap(logs => console.log('Retornou os logs')),
-        catchError(this.handleError('getLogs', []))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError('getLogs', err))
       );
   }
 
-  getLogById(id: string): Observable<any> {
+  getLogById(id: String): Observable<Response> {
     const endpoint = apiUrl.concat(`/select-by/${id}`);
-    return this.http.get<any>(endpoint)
+    return this.http.get<Response>(endpoint)
       .pipe(
-        tap(_ => console.log(`Retornou log do ID: ${id}`)),
-        catchError(this.handleError<any>(`getLogById id=${id}`))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError<Response>(`getLogById id=${id}`, err))
       );
   }
 
-  getLogsFilterName(name: string): Observable<any> {
+  getLogsFilterName(name: String): Observable<Response> {
     const endpoint = apiUrl.concat(`/list?nameLog=${name}`);
-    return this.http.get<any>(endpoint)
+    return this.http.get<Response>(endpoint)
       .pipe(
-        tap(logs => console.log(`Retornou logs com nome: ${name}`)),
-        catchError(this.handleError(`getLogsFilterName name=${name}`, []))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError(`getLogsFilterName name=${name}`, err))
       );
   }
 
-  getLogsFilterIp(ip: string): Observable<any> {
+  getLogsFilterIp(ip: String): Observable<Response> {
     const endpoint = apiUrl.concat(`/list?ip=${ip}`);
-    return this.http.get<any>(endpoint)
+    return this.http.get<Response>(endpoint)
       .pipe(
-        tap(logs => console.log(`Retornou logs com ip: ${ip}`)),
-        catchError(this.handleError(`getLogsFilterIp ip=${ip}`, []))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError(`getLogsFilterIp ip=${ip}`, err))
       );
   }
 
-  uploadLog(dataFile: object): Observable<any> {
+  uploadLog(dataFile: object): Observable<Response> {
     const endpoint = apiUrl.concat('/upload');
-    return this.http.post<any>(endpoint, dataFile, httpOptions)
+    return this.http.post<Response>(endpoint, dataFile, httpOptions)
       .pipe(
         // tslint:disable-next-line:no-shadowed-variable
-        tap((dataFile: Log) => console.log('Upload de log realizado com sucesso!')),
-        catchError(this.handleError<any>('uploadLog'))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError<Response>('uploadLog', err))
       );
   }
 
-  addOrUpdateLog(log: object): Observable<any> {
+  addOrUpdateLog(log: any): Observable<Response> {
+    console.log('log', log);
     const endpoint = apiUrl.concat('/save-or-update');
-    return this.http.patch<any>(endpoint, log, httpOptions)
+    return this.http.patch<Response>(endpoint, log, httpOptions)
       .pipe(
         // tslint:disable-next-line:no-shadowed-variable
-        tap((log: Log) => console.log(`Log do ID ${log.id} atualizado com sucesso!`)),
-        catchError(this.handleError<any>('addOrUpdateLog'))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError<Response>('addOrUpdateLog', err))
       );
   }
 
-  deleteLogById(id: string): Observable<any> {
+  deleteLogById(id: String): Observable<Response> {
     const endpoint = apiUrl.concat(`/delete-by/${id}`);
-    return this.http.delete<any>(endpoint, httpOptions)
+    return this.http.delete<Response>(endpoint, httpOptions)
       .pipe(
-        tap(_ => console.log(`Log do ID ${id}, removido com sucesso!`)),
-        catchError(this.handleError<any>('deleteLogById'))
+        tap((response: Response) => console.log(response.message)),
+        catchError(err => this.handleError<Response>('deleteLogById', err))
       );
   }
 }

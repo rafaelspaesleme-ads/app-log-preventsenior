@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Log } from '../../model/Log';
+import { Response } from "../../model/Response";
 
 @Component({
   selector: 'app-logs',
   templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.sass']
+  styleUrls: ['./logs.component.scss']
 })
 export class LogsComponent implements OnInit {
   private isLoadingResults: boolean | undefined;
+  displayedColumns: string[] = ['id', 'request', 'ip', 'userAgent', 'status'];
+  dataSource: any | undefined;
 
   constructor(private api: ApiService) { }
 
-  displayedColumns: string[] = ['id', 'request', 'ip', 'userAgent', 'status'];
-  dataSource: Log[] | undefined;
 
-  ngOnInit(): void {
+  ngOnInit(): any {
+    this.isLoadingResults = true;
     this.api.getLogs()
-      .subscribe((response) => {
-        this.dataSource = response.data;
+      .subscribe(response => {
+          console.log(response);
+          this.dataSource = response.data;
         console.log(this.dataSource);
         this.isLoadingResults = false;
       },
