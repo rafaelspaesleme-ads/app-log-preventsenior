@@ -1,7 +1,87 @@
-.mat-flat-button {
-  margin: 5px;
-}
 .example-container {
-  position: relative;
-  padding: 5px;
+  width: fit-content;
+  padding: 20px;
+  margin: 30px 50px 30px 30px;
+
+  .button-row {
+    padding-bottom: 30px;
+    button {
+      border: 0;
+      cursor: pointer;
+      background-color: rgba(57, 134, 187, 0.8);
+      color: white;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover {
+      transition: 0.3s;
+      background-color: rgba(57, 134, 187, 0.3);
+    }
+  }
+
+  .example-card {
+    width: 96%;
+    display: inline-flex;
+    box-shadow: 0 2px 9px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 2px 9px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 2px 9px 2px rgba(0,0,0,0.3);
+    padding: 20px;
+    .mat-card-header {
+      width: 55%;
+    }
+    .mat-card-content {
+      width: 24%;
+    }
+    .mat-card-actions {
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .msg-delete-true {
+    display: grid;
+    margin-top: 25px;
+
+    h3 {
+      padding: 10px;
+      border: 1px solid darkgreen;
+      background-color: darkseagreen;
+      color: darkgreen;
+    }
+
+    strong {
+      padding: 10px;
+      border: 1px solid darkblue;
+      background-color: cadetblue;
+      color: darkblue;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 10px;
+      border: 0;
+      cursor: pointer;
+      background-color: rgba(57, 134, 187, 0.8);
+      color: white;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover {
+      transition: 0.3s;
+      background-color: rgba(57, 134, 187, 0.3);
+    }
+  }
 }

@@ -1,30 +1,46 @@
-<div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade"
-       *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+<div class="example-container mat-elevation-z8" >
+  <div *ngIf="!deleted">
+    <div class="button-row">
+      <button mat-flat-button color="accent" [routerLink]="['/logs']">
+        Voltar
+      </button>
+    </div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>
+          <h2>{{currentLog?.fileName}}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <strong>User Agent:</strong>
+          <p>{{currentLog?.userAgent}}</p>
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+          <strong>Ip:</strong>
+          <p>{{currentLog?.ip}}</p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <strong>Request:</strong>
+        <p>{{currentLog?.request}}</p>
+        <strong>Status Http:</strong>
+        <p>{{currentLog?.statusHttp}}</p>
+        <strong>Data e Hora:</strong>
+        <p>{{removeTdateTime(currentLog?.dateTime)}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" class="teste" [routerLink]="['/log-editar', currentLog?.id]">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-flat-button color="warn" (click)="deleteLogById(currentLog?.id)">
+          <mat-icon>delete</mat-icon>
+          Excluir
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-  <div class="button-row">
-    <button mat-flat-button color="accent" [routerLink]="['/logs']"><mat-icon>list</mat-icon> Voltar</button>
+  <div *ngIf="deleted" class="msg-delete-true">
+    <h3>{{ message }}</h3>
+    <button class="btn btn-success" (click)="returnRouterInitial()">Voltar</button>
   </div>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title><h2>{{log.fileName}}</h2></mat-card-title>
-      <mat-card-subtitle>{{log.userAgent}}</mat-card-subtitle>
-      <mat-card-subtitle>{{log.ip}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <dl>
-        <dt>Request:</dt>
-        <dd>{{log.request}}</dd>
-        <dt>Status:</dt>
-        <dd>{{log.statusHttp}}</dd>
-        <dt>Data:</dt>
-        <dd>{{log.dateTime}}</dd>
-      </dl>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-flat-button color="primary" class="teste" [routerLink]="['/log-editar', log.id]"><mat-icon>edit</mat-icon> Editar</button>
-      <button mat-flat-button color="warn" (click)="deleteLog(log.id)"><mat-icon>delete</mat-icon> Excluir</button>
-    </mat-card-actions>
-  </mat-card>
 </div>

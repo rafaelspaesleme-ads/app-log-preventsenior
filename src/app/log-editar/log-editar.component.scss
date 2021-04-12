@@ -1,8 +1,112 @@
-.example-container {
-  display: flex;
-  flex-direction: column;
-}
+.submit-form {
+  display: grid;
 
-.example-container > * {
-  width: 100%;
+  .form-group {
+    display: grid;
+    margin-bottom: 15px;
+
+    input {
+      padding: 10px;
+      border: 0;
+    }
+
+    input:focus {
+      outline: none;
+    }
+  }
+
+  section {
+    float: right;
+    margin-top: 20px;
+
+    button {
+      padding: 10px;
+      border: 0;
+      cursor: pointer;
+      background-color: rgba(57, 134, 187, 0.8);
+      color: white;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover {
+      transition: 0.3s;
+      background-color: rgba(57, 134, 187, 0.3);
+    }
+
+    button:disabled {
+      background-color: gray;
+      cursor: auto;
+    }
+  }
+
+  .container-button-false-submitted {
+
+    button {
+      padding: 10px;
+      border: 0;
+      cursor: pointer;
+      background-color: rgba(57, 134, 187, 0.8);
+      color: white;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover {
+      transition: 0.3s;
+      background-color: rgba(57, 134, 187, 0.3);
+    }
+
+    button:disabled {
+      background-color: gray;
+      cursor: auto;
+    }
+  }
+
+  .msg-edit-true {
+    display: grid;
+    margin-top: 25px;
+
+    h3 {
+      padding: 10px;
+      border: 1px solid darkgreen;
+      background-color: darkseagreen;
+      color: darkgreen;
+    }
+
+    strong {
+      padding: 10px;
+      border: 1px solid darkblue;
+      background-color: cadetblue;
+      color: darkblue;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 10px;
+      border: 0;
+      cursor: pointer;
+      background-color: rgba(57, 134, 187, 0.8);
+      color: white;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover {
+      transition: 0.3s;
+      background-color: rgba(57, 134, 187, 0.3);
+    }
+  }
 }

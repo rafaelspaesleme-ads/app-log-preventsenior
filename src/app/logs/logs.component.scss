@@ -1,4 +1,86 @@
 table {
   width: 99%;
   margin-bottom: 25px;
+  .mat-row {
+    td {
+      button {
+        border: 0;
+        margin: 5px;
+        cursor: pointer;
+        background-color: rgba(57,134,187,0.8);
+        color: white;
+        transition: 0.3s;
+        border-radius: 0;
+      }
+      button:focus {
+        outline: none;
+      }
+      button:hover {
+        transition: 0.3s;
+        background-color: rgba(57,134,187,0.3);
+      }
+    }
+  }
+}
+
+.mat-paginator {
+  width: 97%;
+  background-color: rgba(66,66,66,0.8);
+  padding: 10px;
+  display: inline-block;
+  margin-bottom: 25px;
+  .area-pagination {
+    float: right;
+    button {
+      padding: 10px;
+      border: 0;
+      margin: 5px 10px;
+      cursor: pointer;
+      background-color: rgba(57,134,187,0.8);
+      color: white;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+    button:focus {
+      outline: none;
+    }
+    button:hover {
+      transition: 0.3s;
+      background-color: rgba(57,134,187,0.3);
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: auto;
+    }
+  }
+}
+
+.input-group {
+  display: flex;
+  margin-bottom: 5px;
+  input {
+    width: 90%;
+    padding: 10px;
+    border: 0;
+    margin: 5px;
+  }
+  input:focus {
+    outline: none;
+  }
+  button {
+    padding: 10px;
+    border: 0;
+    margin: 5px;
+    cursor: pointer;
+    background-color: rgba(57,134,187,0.8);
+    color: white;
+    transition: 0.3s;
+  }
+  button:focus {
+    outline: none;
+  }
+  button:hover {
+    transition: 0.3s;
+    background-color: rgba(57,134,187,0.3);
+  }
 }

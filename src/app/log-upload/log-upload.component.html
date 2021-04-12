@@ -1,0 +1,29 @@
+<div style="width: 500px; margin: auto;">
+  <div class="submit-form">
+    <div>
+      <section>
+        <h3>Upload de Arquivo de Log</h3>
+      </section>
+      <div class="form-group">
+        <label for="file">Escolher log</label>
+        <input
+          id="file"
+          type="file"
+          class="form-control"
+          (change)="uploadLog($event)"
+        >
+        <small>{{ fileName }}</small>
+        <div *ngIf="loading" class="container-progress">
+          <mat-spinner></mat-spinner>
+          <strong>Realizando upload...</strong>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="uploaded" class="msg-upload-true">
+      <h3>{{ message }}</h3>
+      <strong>{{ subMessage }}</strong>
+      <button class="btn btn-success" [routerLink]="['/logs']">Voltar</button>
+    </div>
+  </div>
+</div>

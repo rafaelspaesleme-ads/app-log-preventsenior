@@ -15,7 +15,20 @@ const profile = 'test';
 
 const baseUrl = profile === 'test' ? 'http://localhost:8080/' : 'https://logs-rpl-prvsr.heroku.com/';
 
-const apiUrl = baseUrl.concat('logs');
+const apiUrl = baseUrl.concat('logs/');
+
+const endpoint = {
+  upload: apiUrl.concat('upload'),
+  saveOrUpdate: apiUrl.concat('save-or-update'),
+  list: (page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+    .concat(`list?page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
+  listByName: (name: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+    .concat(`list?nameLog=${name}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
+  listByIp: (ip: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+    .concat(`list?ip=${ip}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
+  selectById: (id: String) => apiUrl.concat(`select-by/${id}`),
+  deleteById: (id: String) => apiUrl.concat(`delete-by/${id}`)
+};
 
 @Injectable({
   providedIn: 'root'
@@ -24,77 +37,32 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // tslint:disable-next-line:typedef
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+  getLogs(page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+    return this.http.get(endpoint.list(page, linesPerPage, orderBy, direction, limited));
   }
 
-  getLogs(): Observable<Response> {
-    const endpoint = apiUrl.concat('/list');
-    return this.http.get<Response>(endpoint)
-      .pipe(
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError('getLogs', err))
-      );
+  getLogById(id: String): Observable<any> {
+    return this.http.get(endpoint.selectById(id));
   }
 
-  getLogById(id: String): Observable<Response> {
-    const endpoint = apiUrl.concat(`/select-by/${id}`);
-    return this.http.get<Response>(endpoint)
-      .pipe(
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError<Response>(`getLogById id=${id}`, err))
-      );
+  getLogByName(name: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+    return this.http.get(endpoint.listByName(name, page, linesPerPage, orderBy, direction, limited));
   }
 
-  getLogsFilterName(name: String): Observable<Response> {
-    const endpoint = apiUrl.concat(`/list?nameLog=${name}`);
-    return this.http.get<Response>(endpoint)
-      .pipe(
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError(`getLogsFilterName name=${name}`, err))
-      );
+  getLogByIp(ip: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+    return this.http.get(endpoint.listByIp(ip, page, linesPerPage, orderBy, direction, limited));
   }
 
-  getLogsFilterIp(ip: String): Observable<Response> {
-    const endpoint = apiUrl.concat(`/list?ip=${ip}`);
-    return this.http.get<Response>(endpoint)
-      .pipe(
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError(`getLogsFilterIp ip=${ip}`, err))
-      );
+  uploadLog(dataFile: any): Observable<any> {
+    return this.http.post(endpoint.upload, dataFile);
   }
 
-  uploadLog(dataFile: object): Observable<Response> {
-    const endpoint = apiUrl.concat('/upload');
-    return this.http.post<Response>(endpoint, dataFile, httpOptions)
-      .pipe(
-        // tslint:disable-next-line:no-shadowed-variable
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError<Response>('uploadLog', err))
-      );
+  addOrUpdateLog(data: any): Observable<any> {
+    return this.http.patch(endpoint.saveOrUpdate, data);
   }
 
-  addOrUpdateLog(log: any): Observable<Response> {
-    console.log('log', log);
-    const endpoint = apiUrl.concat('/save-or-update');
-    return this.http.patch<Response>(endpoint, log, httpOptions)
-      .pipe(
-        // tslint:disable-next-line:no-shadowed-variable
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError<Response>('addOrUpdateLog', err))
-      );
+  deleteLogById(id: String): Observable<any> {
+    return this.http.delete(endpoint.deleteById(id));
   }
 
-  deleteLogById(id: String): Observable<Response> {
-    const endpoint = apiUrl.concat(`/delete-by/${id}`);
-    return this.http.delete<Response>(endpoint, httpOptions)
-      .pipe(
-        tap((response: Response) => console.log(response.message)),
-        catchError(err => this.handleError<Response>('deleteLogById', err))
-      );
-  }
 }

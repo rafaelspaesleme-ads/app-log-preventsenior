@@ -21,8 +21,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { LogUploadComponent } from './log-upload/log-upload.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -31,27 +33,30 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     LogDetalheComponent,
     LogAddComponent,
     LogEditarComponent,
-    MenuComponent
+    MenuComponent,
+    LogUploadComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatToolbarModule,
-    HttpClientModule,
-    LayoutModule,
-    ReactiveFormsModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatTableModule,
+        MatToolbarModule,
+        HttpClientModule,
+        LayoutModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+        FormsModule,
+        MatPaginatorModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

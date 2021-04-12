@@ -4,6 +4,7 @@ import { LogsComponent } from './logs/logs.component';
 import { LogDetalheComponent } from './log-detalhe/log-detalhe.component';
 import { LogAddComponent } from './log-add/log-add.component';
 import { LogEditarComponent } from './log-editar/log-editar.component';
+import {LogUploadComponent} from "./log-upload/log-upload.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
     path: 'log-add',
     component: LogAddComponent,
     data: { title: 'Adicionar um novo Log' }
+  },
+  {
+    path: 'log-upload',
+    component: LogUploadComponent,
+    data: { title: 'Upload de arquivo de Log' }
   },
   {
     path: 'log-editar/:id',

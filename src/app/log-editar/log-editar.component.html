@@ -1,20 +1,69 @@
-<div>
-  <div>
-    <h3>Editar Produto</h3>
+<div style="width: 500px; margin: auto;">
+  <div class="submit-form">
+    <div *ngIf="!updated">
+      <div class="container-title">
+        <h3>Atualize este log manualmente.</h3>
+      </div>
+      <div class="form-group">
+        <label for="fileName">Digite o nome do arquivo:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fileName"
+          required
+          [(ngModel)]="currentLog.fileName"
+          name="fileName"
+        />
+      </div>
+      <div class="form-group">
+        <label for="ip">Digite o endereço Ip:</label>
+        <input
+          class="form-control"
+          id="ip"
+          required
+          [(ngModel)]="currentLog.ip"
+          name="ip"
+        />
+      </div>
+      <div class="form-group">
+        <label for="request">Digite o tipo de requisição:</label>
+        <input
+          class="form-control"
+          id="request"
+          required
+          [(ngModel)]="currentLog.request"
+          name="request"
+        />
+      </div>
+      <div class="form-group">
+        <label for="statusHttp">Digite o status Http da requisição:</label>
+        <input
+          class="form-control"
+          id="statusHttp"
+          required
+          [(ngModel)]="currentLog.statusHttp"
+          name="statusHttp"
+        />
+      </div>
+      <div class="form-group">
+        <label for="userAgent">Digite o Agente de Usuário dessa requisição:</label>
+        <input
+          class="form-control"
+          id="userAgent"
+          required
+          [(ngModel)]="currentLog.userAgent"
+          name="userAgent"
+        />
+      </div>
+
+      <section>
+        <button (click)="updateLog()" class="btn btn-success">Atualizar</button>
+      </section>
+    </div>
+
+    <div *ngIf="updated" class="msg-edit-true">
+      <h3>{{ message }}</h3>
+      <button class="btn btn-success" (click)="returnRouterInitial()">Voltar ao inicio</button>
+    </div>
   </div>
-  <form class="example-container" [formGroup]="logForm" (ngSubmit)="updateLog(logForm?.value)">
-    <mat-form-field>
-      <input matInput name="fileName" placeholder="Dê um nome para esse arquivo:" formControlName="fileName">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="dateTime" type="date" placeholder="Qual a data deste log?" formControlName="dateTime">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="ip" placeholder="Digite o endereço IP:" formControlName="ip">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="userAgent" placeholder="Qual o nome do UserAgent?" formControlName="userAgent">
-    </mat-form-field>
-    <button type="submit" [disabled]="!logForm.valid" mat-button color="primary" >Editar</button>
-  </form>
 </div>

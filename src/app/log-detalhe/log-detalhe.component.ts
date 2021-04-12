@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
-import { ApiService } from "../api.service";
-import { Log } from "../../model/Log";
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from "@angular/router";
+import {ApiService} from "../api.service";
 
 @Component({
   selector: 'app-log-detalhe',
@@ -9,48 +8,69 @@ import { Log } from "../../model/Log";
   styleUrls: ['./log-detalhe.component.scss']
 })
 export class LogDetalheComponent implements OnInit {
-  log: Log = {
+  currentLog = {
     id: '',
     fileName: '',
-    dateTime: '',
     ip: '',
     request: '',
     statusHttp: '',
     userAgent: '',
-    active: false
+    dateTime: null
   };
-  isLoadingResults = true;
+  message = '';
+  deleted = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private api: ApiService
-  ) { }
-
-  ngOnInit(): any {
-    this.getLog(this.route.snapshot.params['id']);
+    private api: ApiService,
+  ) {
   }
 
-  getLog(id: String) {
+  ngOnInit(): void {
+    this.message = '';
+    this.getLogById(String(this.route.snapshot.paramMap.get('id')));
+  }
+
+  getLogById(id: String) {
     this.api.getLogById(id)
       .subscribe(response => {
-        // @ts-ignore
-        this.log = response['data'];
-        console.log(this.log);
-        this.isLoadingResults = false;
-      });
+          console.log('res', response);
+          this.currentLog = {...response?.data};
+          this.message = response?.message;
+        },
+        error => {
+          console.error(error);
+        })
   }
 
-  deleteLog(id: String) {
-    this.isLoadingResults = true;
-    this.api.deleteLogById(id)
-      .subscribe(response => {
-        this.isLoadingResults = false;
-        this.router.navigate(['/logs']);
-      }, error => {
-        console.log(error);
-        this.isLoadingResults = false;
-      });
+  deleteLogById(id: any) {
+    if (id !== null) {
+      this.api.deleteLogById(id)
+        .subscribe(response => {
+          this.message = response?.message;
+          this.deleted = true;
+        })
+    }
   }
 
+  convertDateEngInDatePtBr(dateTime: any) {
+    const dateTimeFormat = String(dateTime).split('T');
+    const date = dateTimeFormat[0];
+    const time = dateTimeFormat[1];
+
+    const year = date.split('-')[0];
+    const month = date.split('-')[1];
+    const day = date.split('-')[2];
+
+    return day + '/' + month + '/' + year + ' ' + time;
+  }
+
+  removeTdateTime(dateTime: any) {
+    return String(dateTime).replace('T', ' ');
+  }
+
+  returnRouterInitial() {
+    window.open('/logs', '_self');
+  }
 }

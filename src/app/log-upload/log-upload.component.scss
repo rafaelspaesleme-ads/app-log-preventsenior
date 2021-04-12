@@ -3,23 +3,12 @@
 
   .form-group {
     display: grid;
-    margin-bottom: 15px;
 
-    input {
-      padding: 10px;
-      border: 0;
+    input[type="file"] {
+      display: none;
     }
 
-    input:focus {
-      outline: none;
-    }
-  }
-
-  section {
-    float: right;
-    margin-top: 20px;
-
-    button {
+    label {
       padding: 10px;
       border: 0;
       cursor: pointer;
@@ -27,27 +16,31 @@
       color: white;
       transition: 0.3s;
       border-radius: 0;
-    }
-    .btn-return {
-      margin-right: 10px;
+      width: fit-content;
     }
 
-    button:focus {
-      outline: none;
-    }
-
-    button:hover {
+    label:hover {
       transition: 0.3s;
       background-color: rgba(57, 134, 187, 0.3);
     }
 
-    button:disabled {
-      background-color: gray;
-      cursor: auto;
+    small {
+      margin-top: 5px;
+    }
+
+    .container-progress {
+      display: grid;
+      margin: 30px;
+      .mat-spinner {
+        margin: 15px;
+      }
+      strong {
+
+      }
     }
   }
 
-  .container-button-false-submitted {
+  .msg-upload-true {
     display: grid;
     margin-top: 25px;
 
