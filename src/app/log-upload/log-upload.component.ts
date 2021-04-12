@@ -30,7 +30,6 @@ export class LogUploadComponent implements OnInit {
       const formData = new FormData();
 
       formData.append('file', event.target.files[0]);
-      formData.append('sizeFile', event.target.files[0]?.size);
 
       this.api.uploadLog(formData)
         .subscribe(response => {
