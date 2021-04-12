@@ -22,8 +22,8 @@ const endpoint = {
   saveOrUpdate: apiUrl.concat('save-or-update'),
   list: (page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
     .concat(`list?page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
-  listByName: (name: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
-    .concat(`list?nameLog=${name}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
+  listByUserAgent: (userAgent: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+    .concat(`list?userAgent=${userAgent}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
   listByIp: (ip: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
     .concat(`list?ip=${ip}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
   selectById: (id: String) => apiUrl.concat(`select-by/${id}`),
@@ -45,8 +45,8 @@ export class ApiService {
     return this.http.get(endpoint.selectById(id));
   }
 
-  getLogByName(name: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
-    return this.http.get(endpoint.listByName(name, page, linesPerPage, orderBy, direction, limited));
+  getLogByUserAgent(userAgent: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+    return this.http.get(endpoint.listByUserAgent(userAgent, page, linesPerPage, orderBy, direction, limited));
   }
 
   getLogByIp(ip: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
