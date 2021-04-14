@@ -18,7 +18,7 @@ const profile = environment.production
 const baseUrl = profile === 'dev'
   ? 'http://localhost:8080/'
   // @ts-ignore
-  : `${environment.env}`;
+  : `${process.env.backend}`;
 
 const apiUrl = baseUrl.concat('logs/');
 
