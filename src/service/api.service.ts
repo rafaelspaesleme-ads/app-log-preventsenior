@@ -15,7 +15,7 @@ const profile = environment.production
 
 const baseUrl = profile === 'dev'
   ? 'http://localhost:8080/'
-  : 'https://logs-rpl-prvsr.herokuapp.com/';
+  : `${environment.backend}`;
 
 const apiUrl = baseUrl.concat('logs/');
 
