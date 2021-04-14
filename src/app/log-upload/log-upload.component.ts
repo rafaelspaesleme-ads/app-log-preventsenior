@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../service/api.service";
+import {ApiService} from '../../service/api.service';
 
 @Component({
   selector: 'app-log-upload',
@@ -11,6 +11,7 @@ export class LogUploadComponent implements OnInit {
 
   uploaded = false;
   loading = false;
+  responseError = false;
 
   message = '';
   subMessage = '';
@@ -41,7 +42,11 @@ export class LogUploadComponent implements OnInit {
           },
           error => {
             console.error(error);
-          })
+            this.loading = false;
+            this.responseError = true;
+            this.message = error?.error?.message ?? error?.message;
+            setTimeout(() => this.responseError = false, 5000);
+          });
     }
   }
 

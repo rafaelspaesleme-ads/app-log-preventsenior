@@ -71,6 +71,18 @@
     }
   }
 
+  .msg-edit-error {
+    display: grid;
+    margin-top: 25px;
+
+    h3 {
+      padding: 10px;
+      border: 1px solid darkred;
+      background-color: palevioletred;
+      color: darkred;
+    }
+  }
+
   .msg-edit-true {
     display: grid;
     margin-top: 25px;

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../service/api.service';
 
 @Component({
@@ -15,8 +15,8 @@ export class LogsComponent implements OnInit {
   ip = '';
   displayedColumns: string[] = ['id', 'userAgent', 'request', 'ip', 'status', 'detalhes'];
   dataSource = [];
-  page: number = 0;
-  currentPage: number = 0;
+  page = 0;
+  currentPage = 0;
   pageBackend = 0;
   linesPerPage = 10;
   orderBy = 'dateTime';
@@ -38,7 +38,7 @@ export class LogsComponent implements OnInit {
   descriptionCard6 = '';
   cardsDashboard = false;
 
-    constructor(private api: ApiService) {
+  constructor(private api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class LogsComponent implements OnInit {
     this.getCountLastHourByOPTION();
   }
 
-  getLogs(page : number = 0, direction: string = 'ASC'): void {
+  getLogs(page: number = 0, direction: string = 'ASC'): void {
     this.api.getLogs(page, this.linesPerPage, this.orderBy, direction, this.limited)
       .subscribe(response => {
           this.currentPage = page;
@@ -78,7 +78,7 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
           this.cardsDashboard = false;
-        })
+        });
   }
 
   getCountLastHourByPOST(): void {
@@ -93,7 +93,7 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
           this.cardsDashboard = false;
-        })
+        });
   }
 
   getCountLastHourByPUT(): void {
@@ -108,7 +108,7 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
           this.cardsDashboard = false;
-        })
+        });
   }
 
   getCountLastHourByPATCH(): void {
@@ -123,7 +123,7 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
           this.cardsDashboard = false;
-        })
+        });
   }
 
   getCountLastHourByOPTION(): void {
@@ -138,7 +138,7 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
           this.cardsDashboard = false;
-        })
+        });
   }
 
   getCountLastHourByDELETE(): void {
@@ -153,7 +153,7 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
           this.cardsDashboard = false;
-        })
+        });
   }
 
   refresh(): void {
@@ -170,11 +170,10 @@ export class LogsComponent implements OnInit {
     } else {
       this.getLogs(0, 'ASC');
       this.titleFilter = 'Filtrar logs mais recentes';
-
     }
   }
 
-  searchByUserAgent(page : number = 0, direction: string = 'DESC'): void {
+  searchByUserAgent(page: number = 0, direction: string = 'DESC'): void {
     this.api.getLogByUserAgent(this.userAgent, page, this.linesPerPage, this.orderBy, direction, this.limited)
       .subscribe(response => {
           this.currentPage = page;
@@ -187,10 +186,10 @@ export class LogsComponent implements OnInit {
         },
         error => {
           console.error(error);
-        })
+        });
   }
 
-  searchByIp(page : number = 0, direction: string = 'DESC'): void {
+  searchByIp(page: number = 0, direction: string = 'DESC'): void {
     this.api.getLogByIp(this.ip, page, this.linesPerPage, this.orderBy, direction, this.limited)
       .subscribe(response => {
           this.currentPage = page;
@@ -203,12 +202,13 @@ export class LogsComponent implements OnInit {
         },
         error => {
           console.error(error);
-        })
+        });
   }
 
+  // tslint:disable-next-line:typedef
   setPagination(type: string) {
     if (type === 'previus') {
-      const { page } = this;
+      const {page} = this;
 
       if (page !== 0) {
         this.disabledPagePrevius = false;
@@ -223,7 +223,7 @@ export class LogsComponent implements OnInit {
         }
       }
     } else {
-      const { page, pageBackend } = this;
+      const {page, pageBackend} = this;
       if (page !== pageBackend) {
         this.disabledPagePrevius = true;
         this.disabledPageNext = false;
@@ -235,29 +235,30 @@ export class LogsComponent implements OnInit {
         } else {
           this.getLogs(pageNumber);
         }
-
       }
     }
   }
 
-  simplifyingUserAgent(userAgent: String) {
-      const listName = userAgent.split(' ');
+  // tslint:disable-next-line:typedef
+  simplifyingUserAgent(userAgent: string) {
+    const listName = userAgent.split(' ');
 
-      if (listName.length > 7) {
-        return `${listName[0]} ${listName[1]} ${listName[2]} ${listName[3]} ${listName[4]} ${listName[5]} ${listName[6]}...`;
-      } else if (listName.length > 3 && listName.length < 8) {
-        return `${listName[0]} ${listName[1]} ${listName[2]}...`;
-      } else if (listName.length > 2 && listName.length < 4) {
-        return `${listName[0]} ${listName[1]}...`;
-      } else if (listName.length > 1 && listName.length < 3) {
-        return `${listName[0]} ${listName[1]}`;
-      } else {
-        return listName[0];
-      }
+    if (listName.length > 7) {
+      return `${listName[0]} ${listName[1]} ${listName[2]} ${listName[3]} ${listName[4]} ${listName[5]} ${listName[6]}...`;
+    } else if (listName.length > 3 && listName.length < 8) {
+      return `${listName[0]} ${listName[1]} ${listName[2]}...`;
+    } else if (listName.length > 2 && listName.length < 4) {
+      return `${listName[0]} ${listName[1]}...`;
+    } else if (listName.length > 1 && listName.length < 3) {
+      return `${listName[0]} ${listName[1]}`;
+    } else {
+      return listName[0];
+    }
   }
 
-  simplifyingId(id: String) {
-    return  id.split('-')[0];
+  // tslint:disable-next-line:typedef
+  simplifyingId(id: string) {
+    return id.split('-')[0];
   }
 
 }

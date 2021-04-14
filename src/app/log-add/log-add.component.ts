@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../service/api.service";
+import {ApiService} from '../../service/api.service';
 
 @Component({
   selector: 'app-log-add',
@@ -16,7 +16,7 @@ export class LogAddComponent implements OnInit {
   };
 
   submitted = false;
-
+  responseError = false;
   message = '';
 
   constructor(private api: ApiService) {
@@ -47,8 +47,11 @@ export class LogAddComponent implements OnInit {
         },
         error => {
           console.error(error);
-          this.message = error.toLocaleString();
-        })
+          console.log('covnert', error?.error);
+          this.responseError = true;
+          this.message = error?.error?.message ?? error?.message;
+          setTimeout(() => this.responseError = false, 5000);
+        });
   }
 
   clearLog(): void {
@@ -59,7 +62,7 @@ export class LogAddComponent implements OnInit {
       request: '',
       statusHttp: '',
       userAgent: '',
-    }
+    };
     this.message = '';
   }
 

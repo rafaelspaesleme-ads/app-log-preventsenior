@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from "../environments/environment";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -11,31 +11,27 @@ const httpOptions = {
 
 const profile = environment.production
   ? 'prod'
-  : environment.development
-    ? 'dev'
-    : 'test';
+  : 'dev';
 
-const baseUrl = profile === 'test'
+const baseUrl = profile === 'dev'
   ? 'http://localhost:8080/'
-  : profile === 'dev'
-    ? 'https://logs-rpl-prvsr.heroku.com/'
-    : 'https://rpl-prvsr.log';
+  : 'https://logs-rpl-prvsr.herokuapp.com/';
 
 const apiUrl = baseUrl.concat('logs/');
 
 const endpoint = {
   upload: apiUrl.concat('upload'),
   saveOrUpdate: apiUrl.concat('save-or-update'),
-  list: (page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+  list: (page: number, linesPerPage: number, orderBy: string, direction: string, limited: number) => apiUrl
     .concat(`list?page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
-  listByUserAgent: (userAgent: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+  listByUserAgent: (userAgent: string, page: number, linesPerPage: number, orderBy: string, direction: string, limited: number) => apiUrl
     .concat(`list?userAgent=${userAgent}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
-  listByIp: (ip: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number) => apiUrl
+  listByIp: (ip: string, page: number, linesPerPage: number, orderBy: string, direction: string, limited: number) => apiUrl
     .concat(`list?ip=${ip}&page=${page}&linesPerPage=${linesPerPage}&limited=${limited}${orderBy !== null ? `&orderBy=${orderBy}` : ''}${direction !== null ? `&direction=${direction}` : ''}`),
-  selectById: (id: String) => apiUrl.concat(`select-by/${id}`),
-  countLogsByRequest: (request: String) => apiUrl
+  selectById: (id: string) => apiUrl.concat(`select-by/${id}`),
+  countLogsByRequest: (request: string) => apiUrl
     .concat(`count?request=${request}`),
-  deleteById: (id: String) => apiUrl.concat(`delete-by/${id}`)
+  deleteById: (id: string) => apiUrl.concat(`delete-by/${id}`)
 };
 
 @Injectable({
@@ -43,25 +39,27 @@ const endpoint = {
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getLogs(page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+  getLogs(page: number, linesPerPage: number, orderBy: string, direction: string, limited: number): Observable<any> {
     return this.http.get(endpoint.list(page, linesPerPage, orderBy, direction, limited));
   }
 
-  getLogById(id: String): Observable<any> {
+  getLogById(id: string): Observable<any> {
     return this.http.get(endpoint.selectById(id));
   }
 
-  getLogByUserAgent(userAgent: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+  getLogByUserAgent(
+    userAgent: string, page: number, linesPerPage: number, orderBy: string, direction: string, limited: number): Observable<any> {
     return this.http.get(endpoint.listByUserAgent(userAgent, page, linesPerPage, orderBy, direction, limited));
   }
 
-  getLogByIp(ip: String, page: Number, linesPerPage: Number, orderBy: String, direction: String, limited: Number): Observable<any> {
+  getLogByIp(ip: string, page: number, linesPerPage: number, orderBy: string, direction: string, limited: number): Observable<any> {
     return this.http.get(endpoint.listByIp(ip, page, linesPerPage, orderBy, direction, limited));
   }
 
-  countLogsByRequest(request: String): Observable<any> {
+  countLogsByRequest(request: string): Observable<any> {
     return this.http.get(endpoint.countLogsByRequest(request));
   }
 
@@ -73,7 +71,7 @@ export class ApiService {
     return this.http.patch(endpoint.saveOrUpdate, data);
   }
 
-  deleteLogById(id: String): Observable<any> {
+  deleteLogById(id: string): Observable<any> {
     return this.http.delete(endpoint.deleteById(id));
   }
 }

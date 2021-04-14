@@ -45,6 +45,17 @@
       }
     }
   }
+  .msg-delete-error {
+    display: grid;
+    margin-top: 25px;
+
+    h3 {
+      padding: 10px;
+      border: 1px solid darkred;
+      background-color: palevioletred;
+      color: darkred;
+    }
+  }
 
   .msg-delete-true {
     display: grid;

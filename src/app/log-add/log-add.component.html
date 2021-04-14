@@ -67,6 +67,10 @@
       </section>
     </div>
 
+    <div *ngIf="responseError" class="container-button-false-error">
+      <h3>{{ message }}</h3>
+    </div>
+
     <div *ngIf="submitted" class="container-button-false-submitted">
       <h3>{{ message }}</h3>
       <button class="btn btn-success" (click)="clearLog()">Adicionar Novo Log...</button>

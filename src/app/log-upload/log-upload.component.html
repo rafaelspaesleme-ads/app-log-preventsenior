@@ -18,6 +18,10 @@
           <strong>Realizando upload...</strong>
         </div>
       </div>
+
+      <div *ngIf="responseError" class="msg-upload-error">
+        <h3>{{ message }}</h3>
+      </div>
     </div>
 
     <div *ngIf="uploaded" class="msg-upload-true">

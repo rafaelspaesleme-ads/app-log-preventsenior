@@ -31,12 +31,26 @@
     .container-progress {
       display: grid;
       margin: 30px;
+
       .mat-spinner {
         margin: 15px;
       }
+
       strong {
 
       }
+    }
+  }
+
+  .msg-upload-error {
+    display: grid;
+    margin-top: 25px;
+
+    h3 {
+      padding: 10px;
+      border: 1px solid darkred;
+      background-color: palevioletred;
+      color: darkred;
     }
   }
 

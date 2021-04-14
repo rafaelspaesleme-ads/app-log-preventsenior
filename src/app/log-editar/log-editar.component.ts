@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from "../../service/api.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ApiService} from '../../service/api.service';
 
 @Component({
   selector: 'app-log-editar',
@@ -20,6 +20,7 @@ export class LogEditarComponent implements OnInit {
   };
 
   updated = false;
+  responseError = false;
 
   message = '';
 
@@ -35,7 +36,8 @@ export class LogEditarComponent implements OnInit {
     this.getLogById(String(this.route.snapshot.paramMap.get('id')));
   }
 
-  getLogById(id: String) {
+  // tslint:disable-next-line:typedef
+  getLogById(id: string) {
     this.api.getLogById(id)
       .subscribe(response => {
           this.currentLog = {...response?.data};
@@ -43,7 +45,7 @@ export class LogEditarComponent implements OnInit {
         },
         error => {
           console.error(error);
-        })
+        });
   }
 
   updateLog(): void {
@@ -69,10 +71,13 @@ export class LogEditarComponent implements OnInit {
         },
         error => {
           console.error(error);
-          this.message = error.toLocaleString();
-        })
+          this.responseError = true;
+          this.message = error?.error?.message ?? error?.message;
+          setTimeout(() => this.responseError = false, 5000);
+        });
   }
 
+  // tslint:disable-next-line:typedef
   returnRouterInitial() {
     window.open('/logs', '_self');
   }

@@ -38,6 +38,9 @@
         </button>
       </mat-card-actions>
     </mat-card>
+    <div *ngIf="responseError" class="msg-delete-error">
+      <h3>{{ message }}</h3>
+    </div>
   </div>
   <div *ngIf="deleted" class="msg-delete-true">
     <h3>{{ message }}</h3>

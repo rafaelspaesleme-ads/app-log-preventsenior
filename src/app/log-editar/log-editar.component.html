@@ -60,6 +60,9 @@
         <button (click)="updateLog()" class="btn btn-success">Atualizar</button>
       </section>
     </div>
+    <div *ngIf="responseError" class="msg-edit-error">
+      <h3>{{ message }}</h3>
+    </div>
 
     <div *ngIf="updated" class="msg-edit-true">
       <h3>{{ message }}</h3>
