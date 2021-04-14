@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../api.service";
+import {ApiService} from "../../service/api.service";
 
 @Component({
   selector: 'app-log-upload',
@@ -22,7 +22,6 @@ export class LogUploadComponent implements OnInit {
   }
 
   uploadLog(event: any): void {
-    console.log('file', event.target.files);
     this.loading = true;
 
     if (event.target.files.length > 0) {
@@ -33,7 +32,6 @@ export class LogUploadComponent implements OnInit {
 
       this.api.uploadLog(formData)
         .subscribe(response => {
-            console.log('upload', response);
             if (response?.statusHttp === 201) {
               this.loading = false;
               this.uploaded = true;

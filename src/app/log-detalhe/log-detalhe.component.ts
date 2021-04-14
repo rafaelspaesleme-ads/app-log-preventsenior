@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
-import {ApiService} from "../api.service";
+import {ApiService} from "../../service/api.service";
 
 @Component({
   selector: 'app-log-detalhe',
@@ -35,7 +35,6 @@ export class LogDetalheComponent implements OnInit {
   getLogById(id: String) {
     this.api.getLogById(id)
       .subscribe(response => {
-          console.log('res', response);
           this.currentLog = {...response?.data};
           this.message = response?.message;
         },

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ApiService} from '../api.service';
+import {ApiService} from '../../service/api.service';
 
 @Component({
   selector: 'app-logs',
@@ -24,18 +24,36 @@ export class LogsComponent implements OnInit {
   disabledPagePrevius = false;
   disabledPageNext = false;
   titleFilter = 'Filtrar logs mais recentes';
+  numberCard1 = 0;
+  descriptionCard1 = '';
+  numberCard2 = 0;
+  descriptionCard2 = '';
+  numberCard3 = 0;
+  descriptionCard3 = '';
+  numberCard4 = 0;
+  descriptionCard4 = '';
+  numberCard5 = 0;
+  descriptionCard5 = '';
+  numberCard6 = 0;
+  descriptionCard6 = '';
+  cardsDashboard = false;
 
     constructor(private api: ApiService) {
   }
 
   ngOnInit(): void {
     this.getLogs(this.page);
+    this.getCountLastHourByGET();
+    this.getCountLastHourByPOST();
+    this.getCountLastHourByPUT();
+    this.getCountLastHourByPATCH();
+    this.getCountLastHourByDELETE();
+    this.getCountLastHourByOPTION();
   }
 
   getLogs(page : number = 0, direction: string = 'ASC'): void {
     this.api.getLogs(page, this.linesPerPage, this.orderBy, direction, this.limited)
       .subscribe(response => {
-          console.log(response);
           this.currentPage = page;
           this.dataSource = response?.data?.content;
           this.pageBackend = response?.data?.totalElements;
@@ -46,6 +64,96 @@ export class LogsComponent implements OnInit {
         error => {
           console.error(error);
         });
+  }
+
+  getCountLastHourByGET(): void {
+    this.api.countLogsByRequest('GET')
+      .subscribe(response => {
+          if (response?.statusHttp === 200) {
+            this.cardsDashboard = true;
+            this.numberCard1 = response?.data;
+            this.descriptionCard1 = response?.message;
+          }
+        },
+        error => {
+          console.error(error);
+          this.cardsDashboard = false;
+        })
+  }
+
+  getCountLastHourByPOST(): void {
+    this.api.countLogsByRequest('POST')
+      .subscribe(response => {
+          if (response?.statusHttp === 200) {
+            this.cardsDashboard = true;
+            this.numberCard2 = response?.data;
+            this.descriptionCard2 = response?.message;
+          }
+        },
+        error => {
+          console.error(error);
+          this.cardsDashboard = false;
+        })
+  }
+
+  getCountLastHourByPUT(): void {
+    this.api.countLogsByRequest('PUT')
+      .subscribe(response => {
+          if (response?.statusHttp === 200) {
+            this.cardsDashboard = true;
+            this.numberCard3 = response?.data;
+            this.descriptionCard3 = response?.message;
+          }
+        },
+        error => {
+          console.error(error);
+          this.cardsDashboard = false;
+        })
+  }
+
+  getCountLastHourByPATCH(): void {
+    this.api.countLogsByRequest('PATCH')
+      .subscribe(response => {
+          if (response?.statusHttp === 200) {
+            this.cardsDashboard = true;
+            this.numberCard4 = response?.data;
+            this.descriptionCard4 = response?.message;
+          }
+        },
+        error => {
+          console.error(error);
+          this.cardsDashboard = false;
+        })
+  }
+
+  getCountLastHourByOPTION(): void {
+    this.api.countLogsByRequest('OPTION')
+      .subscribe(response => {
+          if (response?.statusHttp === 200) {
+            this.cardsDashboard = true;
+            this.numberCard5 = response?.data;
+            this.descriptionCard5 = response?.message;
+          }
+        },
+        error => {
+          console.error(error);
+          this.cardsDashboard = false;
+        })
+  }
+
+  getCountLastHourByDELETE(): void {
+    this.api.countLogsByRequest('DELETE')
+      .subscribe(response => {
+          if (response?.statusHttp === 200) {
+            this.cardsDashboard = true;
+            this.numberCard6 = response?.data;
+            this.descriptionCard6 = response?.message;
+          }
+        },
+        error => {
+          console.error(error);
+          this.cardsDashboard = false;
+        })
   }
 
   refresh(): void {
@@ -69,7 +177,6 @@ export class LogsComponent implements OnInit {
   searchByUserAgent(page : number = 0, direction: string = 'DESC'): void {
     this.api.getLogByUserAgent(this.userAgent, page, this.linesPerPage, this.orderBy, direction, this.limited)
       .subscribe(response => {
-          console.log('logs', response);
           this.currentPage = page;
           this.dataSource = response?.data?.content;
           this.pageBackend = response?.data?.totalElements;
@@ -86,7 +193,6 @@ export class LogsComponent implements OnInit {
   searchByIp(page : number = 0, direction: string = 'DESC'): void {
     this.api.getLogByIp(this.ip, page, this.linesPerPage, this.orderBy, direction, this.limited)
       .subscribe(response => {
-          console.log('logs', response);
           this.currentPage = page;
           this.dataSource = response?.data?.content;
           this.pageBackend = response?.data?.totalElements;
@@ -121,7 +227,6 @@ export class LogsComponent implements OnInit {
       if (page !== pageBackend) {
         this.disabledPagePrevius = true;
         this.disabledPageNext = false;
-        console.log('page', page);
         const pageNumber = page + 1;
         if (this.userAgent !== '' && this.ip === '') {
           this.searchByUserAgent(pageNumber);
