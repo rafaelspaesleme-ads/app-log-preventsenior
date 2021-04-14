@@ -13,9 +13,10 @@ const profile = environment.production
   ? 'prod'
   : 'dev';
 
+// @ts-ignore
 const baseUrl = profile === 'dev'
   ? 'http://localhost:8080/'
-  : 'https://logs-rpl-prvsr.herokuapp.com/';
+  : `${process.env.BASE_URL_BACKEND}`;
 
 const apiUrl = baseUrl.concat('logs/');
 
