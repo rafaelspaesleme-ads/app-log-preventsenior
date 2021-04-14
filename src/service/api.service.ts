@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../environments/environment';
+// @ts-ignore
+import { environment } from '../environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +17,8 @@ const profile = environment.production
 // @ts-ignore
 const baseUrl = profile === 'dev'
   ? 'http://localhost:8080/'
-  : `${process.env.BASE_URL_BACKEND}`;
+  // @ts-ignore
+  : `${environment.env}`;
 
 const apiUrl = baseUrl.concat('logs/');
 
