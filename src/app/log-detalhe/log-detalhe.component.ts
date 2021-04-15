@@ -77,7 +77,8 @@ export class LogDetalheComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   returnRouterInitial() {
-    window.open('/logs', '_self');
+    const location = window.location;
+    window.open(location.protocol + '//' + location.host, '_self');
   }
 
   ngOnInit(): void {
