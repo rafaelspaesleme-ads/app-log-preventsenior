@@ -3,6 +3,8 @@
 
 >Prevent Senior - Desafio Técnico
 
+<a href="https://logs-app-preventsr.netlify.app/logs">Acessar App<a/>
+
 >>Aplicação em TypeScript utilizando o framework Angular para fazer o upload de um arquivo de logs populando o banco de dados.
 
 ## Detalhes do front-end
