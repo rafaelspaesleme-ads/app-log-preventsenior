@@ -1,4 +1,15 @@
-# LogsApp
+
+# LOGS PREVENT SENIOR
+
+>Prevent Senior - Desafio Técnico
+
+>>Aplicação em TypeScript utilizando o framework Angular para fazer o upload de um arquivo de logs populando o banco de dados.
+
+## Detalhes do front-end
+
+* Tela para inserção de logs manuais (CRUD).
+* Tela para inserção de logs usando o arquivo modelo.
+* (BÔNUS) Uma tela (dashboard) para exibir os logs feitos por um determinado IP, por hora, user-agent (agregação).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
 
